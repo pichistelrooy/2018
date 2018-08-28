@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+<span onclick="run();">Click Here and see the Magic!</span>
+</body>
+</html>
+
+<script>
+
+function Flyweight (make, model, engine){
+    this.make = make;
+    this.model = model;
+    this.engine = engine;
+};
+ 
+var FlyWeightFactory = (function ()	{
+	var flyweights = {};
+ 
+    return {
+        
+		get: function (make, model, engine) {
+            if (!flyweights[make + model]) {
+                flyweights[make + model] = new Flyweight(make, model, engine);
+            }  
+            return flyweights[make + model];
+        },
+ 
+		getCount: function () {
+			var count = 0;
+			for (var f in flyweights) count++;
+			return count;
+		}
+    }
+})();
+ 
+function CarCollection () {
+    var cars = {};
+    var count = 0;
+ 
+    return {
+        add: function (make, model, engine, equipment, tag) {
+            cars[tag] = new Car(make, model, engine, equipment, tag);
+            count++;
+        },
+ 
+        get: function (tag) {
+            return cars[tag];
+        },
+ 
+        getCount: function () {
+            return count;
+        }
+    };
+}
+ 
+var Car = function (make, model, engine, equipment, tag) {
+    this.flyweight = FlyWeightFactory.get(make, model, engine);
+    this.equipment = equipment;
+    this.tag = tag;
+    this.getMake = function () {
+        return this.flyweight.make;
+    }   
+}
+ 
+// log
+ 
+var log = (function () {
+	var log = "";
+
+	return {
+		add: function (msg) { log += msg + "\n"; },
+		show: function () { alert(log); log = ""; }
+	}
+})();
+ 
+function run()
+{
+    var cars = new CarCollection();
+    
+    cars.add("Renault", "Sandero", "1.6 CC 85 CV", "Expression", "SAN001");
+    cars.add("Fiat", "Palio", "1.4 FIRE EVO", "Attractive", "PAL001");
+	cars.add("Fiat", "Palio", "1.8 E-TORQ EVO", "PRECISION AT", "CRO001");
+    cars.add("Volkswagen", "Gol", "1.4l Nafta 91 CV", "Trendline", "GOL001");
+    cars.add("Volkswagen", "Gol", "1.6l Nafta 101 CV", "Comfortline", "GOL002");
+	cars.add("Volkswagen", "Gol", "1.6l Nafta 101 CV", "Comfortline", "GOL002");
+	cars.add("Volkswagen", "Gol", "1.6l Nafta 101 CV", "Comfortline", "GOL002");
+	cars.add("Volkswagen", "Gol", "1.6l Nafta 101 CV", "Comfortline", "GOL002");
+	cars.add("Volkswagen", "Gol", "1.6l Nafta 101 CV", "Comfortline", "GOL002");
+	cars.add("Volkswagen", "Gol", "1.6l Nafta 101 CV", "Comfortline", "GOL002");
+    cars.add("Chevrolet", "Cruze", "1.4 TURBO, 153 CV", "hatchback", "CRU001");
+    cars.add("Ferrari", "488 Pista Spider", "V8 – 90° biturbo 3902 CC", "Serie Speciale", "SPY001");
+
+	var car = cars.get("CRO001");
+	log.add("Cars Total: " + cars.getCount());
+    log.add("Flyweights: " + FlyWeightFactory.getCount());
+	log.add("Example of search by TAG:");
+	log.add("Make: " + car.flyweight.make);
+	log.add("Model: " + car.flyweight.model);	
+	log.add("Engine: " + car.flyweight.engine);
+	log.add("Equipment: " + car.equipment);
+    log.show();
+} 	
+
+</script>
+
+<!--
+En nuestro código de ejemplo, estamos construyendo autos.
+Muchos modelos, marcas y combinaciones de motor son comunes, por lo que estas características se tienen en cuenta y
+comparten con los objetos Flyweight. FlyweightFactory mantiene un grupo de objetos Flyweight.
+Cuando se le solicite un objeto Flyweight, FlyweightFactory verificará si ya existe; si no, se creará y almacenará uno nuevo para referencia futura.
+Todas las solicitudes posteriores para ese mismo auto devolverán el objeto Flyweight almacenado.
+Se agregan varios autos diferentes a CarCollection. Al final tenemos una lista de 12 objetos de auto que
+solo comparten 5 Flyweights. Estos son pequeños ahorros, pero con grandes conjuntos de datos, los ahorros de memoria pueden ser significativos.
+La función de registro es una ayuda que recopila y muestra los resultados.
+--!>
