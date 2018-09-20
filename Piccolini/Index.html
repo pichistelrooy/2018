@@ -1,0 +1,140 @@
+<main>
+    <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    </head>
+    <body>
+        <div id="app">            
+			
+			<p v-if="errors.length">
+				<b>Para ingresar una Persona necesita completar los siguientes campos:</b>
+				<ul>
+					<li v-for="error in errors">{{ error }}</li>
+				</ul>
+			</p>
+						
+			<fieldset>
+				<legend> Ingrese los Datos de la Persona </legend>
+				<p>	
+					<label for="nombre">Nombre</label>
+					<input type="text" name="usuario" v-model="persona.nombre" value="" placeholder="Ingrese su nombre">				
+				</p>	
+				<p>
+					<label for="edad">Edad</label>
+					<input type="number" name="edad" max="130" v-model="persona.edad" placeholder="Ingrese su edad">		
+				</p>
+				<p>
+					<label for="sexo">Sexo</label>
+					<select name="sexo" v-model="persona.sexo">
+						<option disabled value="">Por favor seleccione su sexo</option>
+						<option>Masculino</option>
+						<option>Femenino</option>
+						<option>N/S</option>
+					</select>
+				</p>	
+				
+				<button @click="agregar()">Agregar</button>
+			</fieldset>	           
+			
+            <ul>
+                <li v-for="(persona, index) in personas" :key="index">
+                    <a @click="borrarPersona(persona.id)">{{ persona.nombre }} {{ persona.edad}} años {{ persona.sexo}}</a>
+                </li>
+				<h4>Hay en total {{total}} persona/s</h4>
+            </ul>
+			 
+			<fieldset>
+				<legend> Seleccione el Sexo a Listar </legend>
+				
+				<label for="sexolista">Sexo</label>
+					<select name="sexolista" v-model="sexo">
+						<option disabled value="">Por favor seleccione el sexo</option>
+						<option>Masculino</option>
+						<option>Femenino</option>
+						<option>N/S</option>
+					</select>
+					
+					<button @click="listar(sexo)">Listar</button>
+			</fieldset>
+			
+			
+			<ul>
+                <li v-for="(persona, index) in listado" :key="index">
+                    <a>{{ persona.nombre }} {{ persona.edad}} años</a>
+                </li>
+				
+				<h4>Total de Personas en la lista: {{totallistado}} persona/s</h4>
+            </ul>
+			
+			
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+					errors: [],
+                    idInicial: 0,
+                    personas: [],
+                    persona: {						
+                        nombre: "",
+						edad: "",
+						sexo: ""
+                    },
+					listado: [],
+					sexo: ""
+                },
+                computed: {
+                    total() {
+                        return this.personas.length;
+                    },
+					totallistado() {
+						return this.listado.length;
+					}
+                },
+                methods: {
+                    agregar() {
+						if (this.persona.nombre && this.persona.edad && this.persona.sexo) {
+						
+							this.personas.push({
+								id: this.idInicial++,
+								nombre: this.persona.nombre,
+								edad: this.persona.edad,
+								sexo: this.persona.sexo
+							});						
+							this.persona.nombre = "";
+							this.persona.edad = "";
+							this.persona.sexo = "";
+							
+							this.errors = [];
+							
+						} else 
+						{
+
+							this.errors = [];
+
+							if (!this.persona.nombre) {
+								this.errors.push('El Nombre es requerido');
+							}
+							if (!this.persona.edad) {
+								this.errors.push('La Edad es requerida');
+							}    
+							if (!this.persona.sexo) {
+								this.errors.push('El Sexo es Requerido');
+							}  		
+							
+						}						
+                    },
+					
+                    borrarPersona(id) {
+                        this.personas = this.personas.filter(persona => persona.id !== id);
+                    },
+					
+					listar(sexo) {
+						this.listado = this.personas.filter(persona => persona.sexo == sexo);
+					}
+					
+                }
+            });
+        </script>
+    </body>
+</main>
