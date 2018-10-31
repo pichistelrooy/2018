@@ -12,8 +12,10 @@ import bCardBody from 'bootstrap-vue/es/components/card/card-body'
 import bCardFooter from 'bootstrap-vue/es/components/card/card-footer'
 import bTable from 'bootstrap-vue/es/components/table/table'
 import bButton from 'bootstrap-vue/es/components/button/button'
-//import bFormInput from 'bootstrap-vue/es/components/form-input/form-input'
-//import bFormSelect from 'bootstrap-vue/es/components/form-select/form-select'
+import bFormInput from 'bootstrap-vue/es/components/form-input/form-input'
+import bFormSelect from 'bootstrap-vue/es/components/form-select/form-select'
+import bFormInvalidFeedback from 'bootstrap-vue/es/components/form/form-invalid-feedback'
+import bFormValidFeedback from 'bootstrap-vue/es/components/form/form-valid-feedback'
 import bContainer from 'bootstrap-vue/es/components/layout/container'
 import bListGroup from 'bootstrap-vue/es/components/list-group/list-group'
 import bListGroupItem from 'bootstrap-vue/es/components/list-group/list-group-item'
@@ -35,8 +37,10 @@ Vue.component('b-card-body', bCardBody);
 Vue.component('b-card-footer', bCardFooter);
 Vue.component('b-table', bTable);
 Vue.component('b-button', bButton);
-//Vue.component('b-form-input', bFormInput);
-//Vue.component('b-form-select', bFormSelect);
+Vue.component('b-form-input', bFormInput);
+Vue.component('b-form-select', bFormSelect);
+Vue.component('b-form-invalid-feedback', bFormInvalidFeedback);
+Vue.component('b-form-valid-feedback', bFormValidFeedback);
 Vue.component('b-layout-container', bContainer);
 Vue.component('b-list-group', bListGroup);
 Vue.component('b-list-group-item', bListGroupItem);

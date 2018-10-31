@@ -4,23 +4,27 @@
         <bCardHeader class="card text-white bg-primary mb-3"> Ingrese los Datos de la Persona </bCardHeader>
         <bCardBody>	
           <label for="nombre">Nombre</label>
-          <input type="text" @input="nameChanged" :value="nombre" id="nombre"
-              placeholder="Ingrese su nombre" class="form-control">	
+          <bFormInput type="text" @input.native="nameChanged" :value="nombre" id="nombre"
+              placeholder="Ingrese su nombre" size="sm"></bFormInput>	
           <br>
           <label for="edad">Edad</label>
-          <input type="number" @input="ageChanged" :value="edad" id="edad"
-              placeholder="Ingrese su edad" class="form-control">
+          <bFormInput type="number" @input.native="ageChanged" :value="edad" id="edad"
+              placeholder="Ingrese su edad" size="sm" :state="edadState" style="max-width: 5rem;" 
+              aria-describedby="inputLiveHelp inputLiveFeedback"></bFormInput>
+          <bFormInvalidFeedback id="inputLiveFeedback">
+            <!-- This will only be shown if the preceeding input has an invalid state -->
+            Edad permitida: 0-150 años
+          </bFormInvalidFeedback>    
           <br>
-          <label for="sexo">Sexo</label>
-          <select name="sexo" @input="sexChanged" :value="sexo" id="sexo" class="form-control">
+          <bFormSelect name="sexo" @input.native="sexChanged" :value="sexo" id="sexo" size="sm" style="max-width: 20rem;">
               <option disabled value="">Por favor seleccione su sexo</option>
               <option>Masculino</option>
               <option>Femenino</option>
               <option>N/S</option>
-          </select>
+          </bFormSelect>
         </bCardBody>
         <bCardFooter>
-          <bButton @click="agregar()" text-variant="white" variant="outline-primary">Agregar</bButton>
+          <bButton @click="agregar()" text-variant="white" variant="outline-primary" :disabled="!edadState">Agregar</bButton>
         </bCardFooter>
     </bCard>
   </section>
@@ -33,6 +37,17 @@
       nombre: String,
       edad: 0,
       sexo: String
+    },
+
+    computed: {
+      edadState () {
+        if (this.edad < 151 && this.edad >= 0) {
+          return true;  
+        }
+        else{
+          return false;
+        }      
+      }
     },
 
     methods: {

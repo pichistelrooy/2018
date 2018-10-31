@@ -12,7 +12,7 @@
             {{ persona.nombre }} {{ persona.edad}} años</bListGroupItem>
 		</bListGroup>
     <br>
-		<bAlert show variant="dark">Total de Personas en la tabla: {{totallistado}} persona/s</bAlert>
+		<bAlert show variant="dark">Total de Personas en la Lista: {{totallistado}} persona/s</bAlert>
   </section>
 </template>
 

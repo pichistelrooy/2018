@@ -2,15 +2,14 @@
     <section>
         <bCard bg-variant="dark" text-variant="white" border-variant="primary">
         <bCardHeader class="card text-white bg-primary mb-3"> Seleccione el sexo a Listar </bCardHeader>
-        <bCardBody>	
-
-            <label for="sexolista">Sexo</label>
-            <select name="sexolista" @input="sexChangedList" :value="sexolista" id="sexolista" class="form-control">
+        <bCardBody>	        
+            <bFormSelect name="sexolista" @input.native="sexChangedList" :value="sexolista" id="sexolista" 
+            size="sm" style="max-width: 20rem;">
                 <option disabled value="">Por favor seleccione el sexo</option>
                 <option>Masculino</option>
                 <option>Femenino</option>
                 <option>N/S</option>
-            </select>
+            </bFormSelect>
         </bCardBody>
         <bCardFooter>
             <bButton @click="listar(sexolista)" text-variant="white" variant="outline-primary">Listar</bButton>

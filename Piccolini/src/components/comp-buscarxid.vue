@@ -1,12 +1,11 @@
 <template>
      <bCard bg-variant="dark" text-variant="white" border-variant="primary">
         <bCardHeader class="card text-white bg-primary mb-3"> Ingrese el ID </bCardHeader>
-        <bCardBody>
+        <bCardBody style="max-width: 10rem;">
 
         <label for="id">ID</label>
-        <input type="number" @input="idChanged" :value="id" id="id" 
-            placeholder="Ingrese ID a Buscar" class="form-control">				
-
+        <bFormInput type="number" @input.native="idChanged" :value="id" id="id" 
+            placeholder="Ingrese ID a Buscar" size="sm" style="max-width: 5rem;"></bFormInput>				
         </bCardBody>
         <bCardFooter>
           <bButton @click="buscarxid(id)" text-variant="white" variant="outline-danger">Buscar</bButton>

@@ -127,7 +127,7 @@ export default {
 						}, 2500);
 						
 						this.personas = PersonaService.getAll();
-
+						this.items = this.personas;
             this.persona.nombre = ''
             this.persona.edad = 0
 						this.persona.sexo = ''
